@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap");
-/* @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap'); */
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 
 :root {
   --primary-color: #4763ac;
@@ -7,6 +7,13 @@
 }
 
 body {
+  font-family: "Unbounded", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  background-color: var(--secondary-color);
+}
+.Quicksand {
   font-family: "Unbounded", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
@@ -28,15 +35,16 @@ body {
 }
 
 textarea::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 textarea::-webkit-scrollbar-track {
-  background: var(--secondary-color);
+  background: var(--primary-color);
 }
 
 textarea::-webkit-scrollbar-thumb {
-  background-color: var(--primary-color);
+  background-color: var(--secondary-color);
   border-radius: 10px;
-  border: 3px solid var(--secondary-color);
+  border: 2px solid var(--primary-color);
+  cursor: grab;
 }
