@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-import { FaCopy, FaFacebook, FaGithub, FaLinkedinIn } from "react-icons/fa";
+import {} from "react-icons/fa";
 import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -9,7 +9,16 @@ import "swiper/css/pagination";
 import "swiper/css/bundle";
 import { motion } from "framer-motion";
 
-import { FaCheck, FaCircleXmark, FaEllipsis } from "react-icons/fa6";
+import {
+  FaCopy,
+  FaFacebook,
+  FaGithub,
+  FaLinkedinIn,
+  FaCheck,
+  FaCircleXmark,
+  FaEllipsis,
+  FaEnvelopeOpen,
+} from "react-icons/fa6";
 const filters = [
   { text: "Rewrite", endpoint: "rewrite" },
   { text: "Fluency", endpoint: "fluency" },
@@ -258,6 +267,12 @@ function App() {
                   process simpler. If you have any queries or comments, I would
                   be delighted to hear from you!
                   <div className="flex space-x-4 md:text-3xl text-2xl mt-5">
+                    <a
+                      href="mailto:dev.hasanchowdhury@gmail.com?subject=Hello%20There&body=I%20wanted%20to%20get%20in%20touch%20with%20you."
+                      target="_blank"
+                    >
+                      <FaEnvelopeOpen />
+                    </a>
                     <a
                       href="https://www.facebook.com/dev.hasanchowdhury"
                       target="_blank"
