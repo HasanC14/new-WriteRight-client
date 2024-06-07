@@ -118,7 +118,7 @@ function App() {
       <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 w-full max-w-7xl relative">
         <div className="md:w-1/2 w-full">
           <textarea
-            className="flex-1 p-4 border rounded-md resize-none h-64 md:h-96 text-sm w-full bg-gray-100"
+            className="flex-1 p-4 border rounded-md resize-none h-64 md:h-96 text-sm w-full bg-gray-100 focus:outline-none focus:ring-0"
             placeholder="Write Smart, Write Right 😌"
             value={inputText}
             onChange={handleInputChange}
@@ -126,7 +126,9 @@ function App() {
         </div>
         <div className="md:w-1/2 w-full">
           <textarea
-            className="flex-1 p-4 md:pe-10 pe-0 pt-7 border rounded-md resize-none h-64 md:h-96 text-sm w-full bg-gray-50"
+            className={`flex-1 p-4 md:pe-10 pe-0 pt-7 border rounded-md resize-none h-64 md:h-96 text-sm w-full bg-gray-50  focus:outline-none focus:ring-0 ${
+              Loading ? "animate-pulse" : ""
+            }`}
             placeholder={
               Loading
                 ? "Thinking... 🤔"
