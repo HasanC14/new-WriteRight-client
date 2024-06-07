@@ -206,7 +206,6 @@ function App() {
       {/* Modal */}
       {isOpen && (
         <motion.div
-          className="md:w-1/2 w-full"
           custom="left"
           initial="hidden"
           animate="visible"
@@ -228,7 +227,7 @@ function App() {
             <div className="grid lg:grid-cols-3 grid-cols-1 md:px-4 md:py-16 p-3 bg-base-200">
               <div className="m-auto col-span-1">
                 <img
-                  src="/public/Profile.png"
+                  src="/Profile.png"
                   alt=""
                   className="size-72 rounded-full "
                 />
