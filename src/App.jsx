@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import { FaCopy, FaFacebook, FaGithub, FaLinkedinIn } from "react-icons/fa";
 import axios from "axios";
@@ -7,9 +7,9 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/bundle";
+import { motion } from "framer-motion";
 
-import { Navigation } from "swiper/modules";
-import { FaCheck } from "react-icons/fa6";
+import { FaCheck, FaCircleXmark, FaEllipsis } from "react-icons/fa6";
 const filters = [
   { text: "Rewrite", endpoint: "rewrite" },
   { text: "Fluency", endpoint: "fluency" },
@@ -30,6 +30,11 @@ function App() {
   const [Loading, setLoading] = useState(false);
   const [Copy, setCopy] = useState(false);
   const [slidesPerView, setSlidesPerView] = useState(3);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsOpen(!isOpen);
+  };
 
   const handleTabClick = async (endpoint, text) => {
     setCopy(false);
@@ -77,7 +82,17 @@ function App() {
     }
   };
   window.addEventListener("resize", handleResize);
-
+  const textAreaVariants = {
+    hidden: (direction) => ({
+      opacity: 0,
+      x: direction === "left" ? -100 : 100,
+    }),
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 1.3, ease: "easeInOut" },
+    },
+  };
   return (
     <div className="min-h-screen flex flex-col justify-center items-center p-4">
       {/* Buttons */}
@@ -85,7 +100,7 @@ function App() {
         {filters.map((filter, index) => (
           <button
             key={index}
-            className={`px-4 py-2 rounded hover:scale-110 transition-all ease-in-out duration-700 ${
+            className={`px-4 py-2 rounded-lg hover:scale-110 transition-all ease-in-out duration-700 border-none ${
               activeTab === filter.text
                 ? "bg-prime text-white scale-125"
                 : "bg-gray-100"
@@ -101,7 +116,7 @@ function App() {
           {filters.map((filter, index) => (
             <SwiperSlide key={index}>
               <button
-                className={`px-4 py-2 rounded hover:scale-110 transition-all ease-in-out duration-700 ${
+                className={`px-4 py-2 rounded-lg hover:scale-110 transition-all ease-in-out duration-700 ${
                   activeTab === filter.text
                     ? "bg-prime text-white scale-125 "
                     : "bg-gray-100"
@@ -116,17 +131,29 @@ function App() {
       </div>
       {/* Text Fields */}
       <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 w-full max-w-7xl relative">
-        <div className="md:w-1/2 w-full">
+        <motion.div
+          className="md:w-1/2 w-full"
+          custom="left"
+          initial="hidden"
+          animate="visible"
+          variants={textAreaVariants}
+        >
           <textarea
-            className="flex-1 p-4 border rounded-md resize-none h-64 md:h-96 text-sm w-full bg-gray-100 focus:outline-none focus:ring-0"
+            className="flex-1 p-4 border rounded-lg resize-none h-64 md:h-96 text-sm w-full bg-gray-100 focus:outline-none focus:ring-0"
             placeholder="Write Smart, Write Right 😌"
             value={inputText}
             onChange={handleInputChange}
           />
-        </div>
-        <div className="md:w-1/2 w-full">
+        </motion.div>
+        <motion.div
+          className="md:w-1/2 w-full"
+          custom="right"
+          initial="hidden"
+          animate="visible"
+          variants={textAreaVariants}
+        >
           <textarea
-            className={`flex-1 p-4 md:pe-10 pe-0 pt-7 border rounded-md resize-none h-64 md:h-96 text-sm w-full bg-gray-50  focus:outline-none focus:ring-0 ${
+            className={`flex-1 p-4 md:pe-10 pe-0 pt-8 border rounded-lg resize-none h-64 md:h-96 text-sm w-full bg-gray-50  focus:outline-none focus:ring-0 ${
               Loading ? "animate-pulse" : ""
             }`}
             placeholder={
@@ -155,45 +182,114 @@ function App() {
               )}
             </button>
           </div>
-        </div>
+        </motion.div>
       </div>
       {/* Footer */}
       <div className="text-xs mt-10 flex flex-col md:flex-row items-center">
-        <div className="text-prime text-lg md:mr-2 mr-0">WriteRight</div>
-        <div>
-          Made with ❤️ by
+        <div className="text-prime text-lg md:mr-2 mr-0">
           <a
-            href="https://www.linkedin.com/in/dev1hasanchowdhury/"
-            className="text-prime hover:underline ml-1"
+            href="https://github.com/HasanC14/new-WriteRight-client"
+            className="md:text-2xl text-lg  hover:underline"
             target="_blank"
           >
-            Hasan Chowdhury
+            WriteRight
           </a>
         </div>
+        <div>
+          Made with ❤️ by
+          <button className="text-prime underline ml-1" onClick={toggleModal}>
+            Hasan Chowdhury
+          </button>
+        </div>
       </div>
-      <div className="flex space-x-2 mt-1 hover:*:scale-110 text-lg text-prime">
-        <a
-          href="https://www.facebook.com/dev.hasanchowdhury"
-          className="cursor-pointer"
-          target="_blank"
+
+      {/* Modal */}
+      {isOpen && (
+        <motion.div
+          className="md:w-1/2 w-full"
+          custom="left"
+          initial="hidden"
+          animate="visible"
+          variants={textAreaVariants}
+          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
         >
-          <FaFacebook />
-        </a>
-        <a
-          href="https://github.com/HasanC14/new-WriteRight-client"
-          className="cursor-pointer"
-          target="_blank"
-        >
-          <FaGithub />
-        </a>
-        <a
-          href="https://www.linkedin.com/in/dev1hasanchowdhury/"
-          className="cursor-pointer"
-          target="_blank"
-        >
-          <FaLinkedinIn />
-        </a>
-      </div>
+          <div className=" bg-prime max-w-screen-lg mx-auto text-second rounded-xl ">
+            <div className="w-full h-12 bg-[#6a85c8] rounded-t-xl flex justify-between items-center">
+              <div>
+                <FaEllipsis className="text-5xl ms-4" />
+              </div>
+              <div>
+                <FaCircleXmark
+                  className="text-3xl me-2 hover:text-white cursor-pointer"
+                  onClick={toggleModal}
+                />
+              </div>
+            </div>
+            <div className="grid lg:grid-cols-3 grid-cols-1 md:px-4 md:py-16 p-3 bg-base-200">
+              <div className="m-auto col-span-1">
+                <img
+                  src="/public/Profile.png"
+                  alt=""
+                  className="size-72 rounded-full "
+                />
+              </div>
+              <div className="col-span-2 lg:mt-0 mt-5">
+                <p className="text-xl  md:px-10 p-3">
+                  <span className="md:text-2xl text-lg ">
+                    Hi there! I&#39;m{" "}
+                    <span className="md:text-4xl text-2xl font-bold">
+                      Hasan
+                    </span>
+                    ,{" "}
+                  </span>{" "}
+                  <br />a{" "}
+                  <span className="font-bold">Full Stack Web Developer</span>{" "}
+                  who loves to code. I created{" "}
+                  <a
+                    href="https://github.com/HasanC14/new-WriteRight-client"
+                    className="md:text-2xl text-lg font-bold hover:underline"
+                  >
+                    WriteRight
+                  </a>{" "}
+                  , By leveraging the power of{" "}
+                  <span className="font-bold">Google</span>&#39;s latest
+                  language processing technology, to assist people in refining
+                  their writing skills. Good writing is an essential part of
+                  communication, and my goal is for WriteRight to make that
+                  process simpler. If you have any queries or comments, I would
+                  be delighted to hear from you!
+                  <div className="flex space-x-4 md:text-3xl text-2xl mt-5">
+                    <a
+                      href="https://www.facebook.com/dev.hasanchowdhury"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="hover:text-white transition-all ease-in-out duration-700"
+                    >
+                      <FaFacebook></FaFacebook>
+                    </a>
+                    <a
+                      href="https://github.com/HasanC14"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="hover:text-white transition-all ease-in-out duration-700"
+                    >
+                      <FaGithub></FaGithub>
+                    </a>
+                    <a
+                      href="https://www.linkedin.com/in/dev1hasanchowdhury/"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="hover:text-white transition-all ease-in-out duration-700"
+                    >
+                      <FaLinkedinIn></FaLinkedinIn>
+                    </a>
+                  </div>
+                </p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      )}
     </div>
   );
 }

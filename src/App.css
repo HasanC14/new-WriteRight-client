@@ -14,7 +14,7 @@ body {
   background-color: var(--secondary-color);
 }
 .Quicksand {
-  font-family: "Unbounded", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -22,7 +22,11 @@ body {
 }
 
 .bg-prime {
+  border: 2px solid;
   background-color: var(--primary-color);
+}
+.border-prime {
+  border-color: var(--primary-color);
 }
 .bg-second {
   background-color: var(--secondary-color);
