@@ -164,7 +164,7 @@ function App() {
           Made with ❤️ by
           <a
             href="https://www.linkedin.com/in/dev1hasanchowdhury/"
-            className="text-prime hover:underline"
+            className="text-prime hover:underline ml-1"
             target="_blank"
           >
             Hasan Chowdhury
